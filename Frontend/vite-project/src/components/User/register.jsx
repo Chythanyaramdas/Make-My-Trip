@@ -70,35 +70,77 @@ const userRegister=()=>{
       })
     }
 
+    // const handleSubmit = async (e) => {
+    //   e.preventDefault();
+  
+    //   setFormError(Validation(formValues, "register"));
+    //   setSubmit(true);
+      
+    // }
+
+    // useEffect(()=>{
+      
+    //   if(Object.keys(formError).length ===0 && submit){
+    //     UserApi.post("/register",{
+    //       ...formValues,
+          
+    //     })
+    //     .then((response)=>{
+    //       if(response.data.status){
+    //         setOtp(true);
+    //       }
+    //     })
+    //     .catch((error)=>{
+    //       console.log("error");
+    //       alert('Already existed')
+    //     })
+    //   }
+    //   return()=>{
+
+    //     console.log("unmountedssssssssssssssssss");
+    //   };
+    // },[formError])
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
-      setFormError(Validation(formValues, "register"));
-      setSubmit(true);
-      
-    }
-
-    useEffect(()=>{
-      
-      if(Object.keys(formError).length ===0 && submit){
-        UserApi.post("/register",{
-          ...formValues,
-          
-        })
-        .then((response)=>{
-          if(response.data.status){
-            setOtp(true);
-          }
-        })
-        .catch((error)=>{
-          console.log("error");
-          alert('Already existed')
-        })
+    
+      // Perform validation
+      const formErrors = Validation(formValues, "register");
+      setFormError(formErrors);
+    
+      // Check for validation errors
+      if (Object.keys(formErrors).length > 0) {
+        console.error("Validation errors:");
+        console.error(formErrors);
+        return; // Halt execution if there are errors
       }
-      return()=>{
-        console.log("unmountedssssssssssssssssss");
-      };
-    },[formError])
+    
+      try {
+        // Prepare data for the API call (example assuming JSON data)
+        const data = {
+          ...formValues,
+          // Add any additional data needed for the API call
+        };
+    
+        // Make the API call
+        const response = await UserApi.post("/register", data);
+    
+        // Handle successful response
+        if (response.data.status) {
+          setOtp(true); // Assuming this indicates successful registration
+          navigate("/login"); // Redirect to login page
+        } else {
+          // Handle API error (use response.data for more specific handling)
+          console.error("API error:", response.data);
+          alert("Error registering user. Please try again.");
+        }
+      } catch (error) {
+        // Handle network or other errors
+        console.error("Error sending data:", error);
+        alert("An error occurred during registration. Please try again.");
+      }
+    };
+    
 
     return(
         <>

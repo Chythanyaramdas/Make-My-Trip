@@ -13,9 +13,6 @@ export default function Validation(values){
         error.email="Enter the correct format like example@gmai.com "
      }
 
-     if(!values.phone){
-        error.phone="Enter the phone number"
-     }
      if(values.password.trim()==""){
         error.password="Please Enter the Password"
      }
