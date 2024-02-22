@@ -128,7 +128,7 @@ const userRegister=()=>{
         // Handle successful response
         if (response.data.status) {
           setOtp(true); // Assuming this indicates successful registration
-          navigate("/login"); // Redirect to login page
+          // navigate("/login"); // Redirect to login page
         } else {
           // Handle API error (use response.data for more specific handling)
           console.error("API error:", response.data);

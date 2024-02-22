@@ -1,70 +1,21 @@
-import React,{useState}from"react";
+import React, { useState } from "react";
+import axios from "axios";
+import { userLogins } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { UserApi } from "../../utils/User/userApi";
 
-import {userLogins} from"../../redux/userSlice"
-import {useDispatch} from"react-redux"
-import { useNavigate} from"react-router-dom"
-import{UserApi} from"../../utils/User/userApi"
+const UserLogin = () => {
+ 
+  const [email, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const UserLogin=()=>{
-    const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [email, setuseremail] = useState("");
-  const [password, setuserpass] = useState("");
+  
 
-  const generateError = (err) => {
-    toast.error(err, {
-      position: "top-center",
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // const data = await userOtp({
-      //   email: email,
-      //   password: password
-      // })
-      console.log("heiiiii");
-      console.log(email, password);
-      console.log("token");
-      const token = localStorage.getItem("adminToken");
-      console.log(token);
-    //   dispatch(showLoading());
-      await UserApi.post(`/userLogin`, { email, password }).then((response) => {
-        console.log(response);
-        // dispatch(hideLoading());
-        const { name, _id, email } = response.data.user;
-
-        dispatch(userLogins({ name, _id, email }));
-
-        navigate("/");
-
-        localStorage.setItem("userToken", response.data.token);
-
-        navigate("/");
-      });
-
-      // if (data) {
-      //   if (data.data.errors) {
-      //     const { email, password } = data.data.errors;
-      //     if (email) generateError(email);
-      //     else if (password) generateError(password);
-      //   } else {
-
-      //     console.log("success login user");
-
-      //   }
-      // }
-    } catch (error) {
-      console.log(error);
-      alert("User Blocked");
-    }
-  };
   return (
     <div className="min-h-screen">
       <div className="flex justify-center items-center h-screen bg-login-signup bg-cover overflow-hidden">
-        <form  onSubmit={handleSubmit}className="flex flex-col justify-center text-center w-full max-w-md shadow-lg py-5 px-4 bg-slate-100">
+        <form className="flex flex-col justify-center text-center w-full max-w-md shadow-lg py-5 px-4 bg-slate-100">
           <div className="mb-5">
             <label
               htmlFor="email"
@@ -76,10 +27,8 @@ const UserLogin=()=>{
               type="email"
               id="email"
               className="input-field"
-              onChange={(e) => setuseremail(e.target.value)}
               placeholder="name@flowbite.com"
-              required
-
+              required=""
             />
           </div>
           <div className="mb-5">
@@ -93,11 +42,10 @@ const UserLogin=()=>{
               type="password"
               id="password"
               className="input-field"
-              onChange={(e) => setuserpass(e.target.value)}
-              required
+              required=""
             />
           </div>
-          {/* <div className="mb-5">
+          <div className="mb-5">
             <label
               htmlFor="repeat-password"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -110,8 +58,8 @@ const UserLogin=()=>{
               className="input-field"
               required=""
             />
-          </div> */}
-          {/* <div className="flex items-start mb-5">
+          </div>
+          <div className="flex items-start mb-5">
             <div className="flex items-center h-5">
               <input
                 id="terms"
@@ -133,7 +81,7 @@ const UserLogin=()=>{
                 terms and conditions
               </a>
             </label>
-          </div> */}
+          </div>
           <button type="submit" className="button-style">
             Register new account
           </button>
@@ -141,5 +89,5 @@ const UserLogin=()=>{
       </div>
     </div>
   );
-}
+};
 export default UserLogin;
