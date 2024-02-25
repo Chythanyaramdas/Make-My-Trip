@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 export const UserApi=axios.create({
-    baseURL:'http://localhost:3001/',
+    baseURL:'http://localhost:3001',
 })
 UserApi.interceptors.request.use(
     function (config) {
@@ -16,3 +16,4 @@ UserApi.interceptors.request.use(
        return Promise.reject(error);
      }
   )
+ 

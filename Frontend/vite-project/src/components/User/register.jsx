@@ -39,7 +39,7 @@ const userRegister=()=>{
     const handleConfirm = () => {
       const result = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
   
-      console.log(formValues);
+      console.log(formValues,"vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
       UserApi.post("/verify_otp", { ...formValues, result }).then((response) => {
         console.log(response);
         if (response.data.message === "Authenticated") {

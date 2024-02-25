@@ -21,18 +21,14 @@ const UserLogin=()=>{
     e.preventDefault();
 
     try {
-      // const data = await userOtp({
-      //   email: email,
-      //   password: password
-      // })
       console.log("heiiiii");
       console.log(email, password);
       console.log("token");
       const token = localStorage.getItem("adminToken");
-      console.log(token);
+      // console.log(token);
     //   dispatch(showLoading());
       await UserApi.post(`/userLogin`, { email, password }).then((response) => {
-        console.log(response);
+        console.log(response,"rrrrrrrrrrrrrr");
         // dispatch(hideLoading());
         const { name, _id, email } = response.data.user;
 
@@ -45,20 +41,10 @@ const UserLogin=()=>{
         navigate("/");
       });
 
-      // if (data) {
-      //   if (data.data.errors) {
-      //     const { email, password } = data.data.errors;
-      //     if (email) generateError(email);
-      //     else if (password) generateError(password);
-      //   } else {
-
-      //     console.log("success login user");
-
-      //   }
-      // }
+    
     } catch (error) {
       console.log(error);
-      alert("User Blocked");
+      alert("User Blockedm");
     }
   };
   return (

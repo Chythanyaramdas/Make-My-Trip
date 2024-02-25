@@ -13,6 +13,7 @@ user_route.post(
     userController.verifyNewPassword
   );
   user_route.post("/newPassword", userController.newPassword);
+  user_route.post("/userLogin",userController.userLogin)
 //    user_route.get("/token_v", authJWT, userController.authUser);
 
 module.exports=user_route

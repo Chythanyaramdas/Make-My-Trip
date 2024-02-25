@@ -245,3 +245,52 @@ const transporter = nodemailer.createTransport({
       console.log(error.message);
     }
   };
+  module.exports.userLogin=async(req,res,next)=>{
+    console.log("userLogin");
+
+    try {
+
+      const email=req.body.email
+      const password=req.body.password
+      console.log(email,password,"miiikiiiii");
+      const userData=await User.findOne({email:email});
+      console.log(userData._id);
+     
+      console.log(userData,"000");
+      if (userData) {
+        console.log("is present");
+  
+        if (userData.isBlocked === true) {
+          console.log("njn");
+          res.status(401).json({
+            message: "User Blocked",
+          });
+        }
+  
+        const passwordMatch = bcrypt.compareSync(password, userData.password);
+        console.log(passwordMatch);
+  
+        if (passwordMatch) {
+          console.log(JWT_SECRET_KEY, "kkkk");
+          const token = jwt.sign(
+            { userId: userData._id, role: "client" },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: 30000 }
+          );
+          console.log(token, "token");
+  
+          res
+            .status(200)
+            .json({ token: token, message: "success token", user: userData });
+        } else {
+          res.status(401).json({ message: "invalid password" });
+        }
+      } else {
+        console.log("pottiii");
+        res.status(404).json({ message: "user not found" });
+      }
+      
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }

@@ -9,13 +9,13 @@ const userSlice=createSlice({
     name:"user",
     initialState,
     reducers:{
-        userLogins(state,action){
-            const userDetails=action.payload
+        userLogins(state,actions){
+            const userDetails=actions.payload
             state.name=userDetails.name
             state.id=userDetails._id
             state.email=userDetails.email
         },
-        userLogout(state,action){
+        userLogout(state,actions){
             state.name=""
             state.id=""
             state.email=""
