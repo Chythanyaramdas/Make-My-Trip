@@ -61,6 +61,7 @@ app.use(
 
 //======================= routes================================
 app.use("/",require("./routers/userRoute"))
+app.use('/staff',require("./routers/staffRoute"))
 
 
 const server=app.listen(3001,function(){

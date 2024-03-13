@@ -247,6 +247,7 @@ const transporter = nodemailer.createTransport({
   };
   module.exports.userLogin=async(req,res,next)=>{
     console.log("userLogin");
+    // Arjun123=password
 
     try {
 
